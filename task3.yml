@@ -1,0 +1,32 @@
+---
+- name: DevOps Final Task 3
+  hosts: webserver
+  become: yes
+
+  tasks:
+
+    - name: Show hostname
+      command: hostname
+      register: hostname_output
+
+    - name: Display hostname
+      debug:
+        var: hostname_output.stdout
+
+    - name: Git pull project
+      shell: |
+        cd /home/lyhorng/id_card_system
+        git pull
+
+    - name: Build Spring Boot
+      shell: |
+        cd /home/lyhorng/id_card_system
+        chmod +x mvnw
+        ./mvnw clean package -DskipTests
+
+    - name: Backup MySQL database
+      shell: |
+        cd /home/lyhorng/id_card_system
+        docker exec mysql-db mysqldump \
+        -u root -pHello@123 A-Hun_Lyhorng-db \
+        > backup.sql
