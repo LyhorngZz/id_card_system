@@ -1,31 +1,24 @@
-name: Spring Boot CI/CD
+deploy:
+  needs: build
 
-on:
-  push:
-    branches:
-      - main
+  runs-on: ubuntu-latest
 
-jobs:
-  build:
+  steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-    runs-on: ubuntu-latest
+    - name: Install Ansible
+      run: |
+        sudo apt update
+        sudo apt install ansible -y
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    - name: Setup SSH Key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -H 152.42.254.59 >> ~/.ssh/known_hosts
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 25
-
-      - name: Build Project
-        run: mvn clean package -DskipTests
-
-      - name: Setup SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 152.42.254.59 >> ~/.ssh/known_hosts
+    - name: Run Playbook
+      run: |
+        ansible-playbook -i inventory.ini task3.yml
