@@ -23,27 +23,27 @@ jobs:
       - name: Build Project
         run: mvn clean package -DskipTests
 
-deploy:
-  needs: build
+  deploy:
+    needs: build
 
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Install Ansible
-      run: |
-        sudo apt update
-        sudo apt install ansible -y
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install ansible -y
 
-    - name: Setup SSH Key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan -H 152.42.254.59 >> ~/.ssh/known_hosts
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 152.42.254.59 >> ~/.ssh/known_hosts
 
-    - name: Run Playbook
-      run: |
-        ansible-playbook -i inventory.ini task3.yml
+      - name: Run Playbook
+        run: |
+          ansible-playbook -i inventory.ini task3.yml
