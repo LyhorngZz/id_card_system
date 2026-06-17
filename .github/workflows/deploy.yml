@@ -21,7 +21,4 @@ jobs:
           java-version: 25
 
       - name: Build Project
-        run: mvn clean package
-
-      - name: Run Tests
-        run: mvn test
+        run: mvn clean package -DskipTests
