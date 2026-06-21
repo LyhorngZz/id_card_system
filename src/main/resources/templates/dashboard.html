@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ID Card Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f5f7fb;
+        }
+
+        .header-card{
+            background:white;
+            border-radius:15px;
+            padding:25px;
+            margin-bottom:25px;
+        }
+
+        .table-card{
+            background:white;
+            border-radius:15px;
+            padding:25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <div class="header-card d-flex justify-content-between align-items-center">
+
+        <h2>Profiles</h2>
+
+        <a href="/profiles/new"
+           class="btn btn-primary">
+            + New Profile
+        </a>
+
+    </div>
+
+    <div class="table-card">
+
+        <table class="table table-hover">
+
+            <thead>
+            <tr>
+                <th>REG NO</th>
+                <th>NAME</th>
+                <th>TYPE</th>
+                <th>DEPARTMENT</th>
+                <th>ACTIONS</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="profile : ${profiles}">
+
+                <td th:text="${profile.registrationNumber}"></td>
+
+                <td th:text="${profile.fullName}"></td>
+
+                <td th:text="${profile.type}"></td>
+
+                <td th:text="${profile.department}"></td>
+
+                <td>
+
+                    <a class="btn btn-sm btn-outline-primary">
+                        Card
+                    </a>
+
+                    <a class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <a class="btn btn-sm btn-danger">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
