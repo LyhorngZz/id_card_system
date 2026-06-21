@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>New Profile</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body style="background:#f5f7fb;">
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <div class="col-md-7">
+
+            <div class="card p-4">
+
+                <h2 class="mb-4">New Profile</h2>
+
+                <form
+                    th:action="@{/profiles/save}"
+                    th:object="${profile}"
+                    method="post">
+
+                    <div class="mb-3">
+                        <label>Profile Type</label>
+                        <select
+                            id="type"
+                            th:field="*{type}"
+                            class="form-select">
+
+                            <option value="STUDENT">STUDENT</option>
+                            <option value="EMPLOYEE">EMPLOYEE</option>
+                            <option value="USER">USER</option>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Full Name</label>
+                        <input type="text"
+                            id="fullName"
+                            th:field="*{fullName}"
+                            class="form-control">
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Department</label>
+                                <input type="text"
+                                    id="department"
+                                    th:field="*{department}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Title / Program</label>
+                                <input type="text"
+                                    id="title"
+                                    th:field="*{title}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Email</label>
+                                <input type="email"
+                                    id="email"
+                                    th:field="*{email}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Phone</label>
+                                <input type="text"
+                                    th:field="*{phone}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Blood Group</label>
+                                <input type="text"
+                                    id="bloodGroup"
+                                    th:field="*{bloodGroup}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Date Of Birth</label>
+                                <input type="date"
+                                    id="dateOfBirth"
+                                    th:field="*{dateOfBirth}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Issue Date</label>
+                                <input type="date"
+                                    id="issueDate"
+                                    th:field="*{issueDate}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Expiry Date</label>
+                                <input type="date"
+                                    id="expiryDate"
+                                    th:field="*{expiryDate}"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Template</label>
+
+                        <select
+                            id="templatePreview"
+                            class="form-select">
+
+                            <option value="blue">Classic Blue</option>
+                            <option value="teal">Modern Teal</option>
+                            <option value="crimson">Crimson Vertical</option>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Barcode Type</label>
+
+                        <select
+                            th:field="*{barcodeType}"
+                            class="form-select">
+
+                            <option value="CODE_128">
+                                CODE_128
+                            </option>
+
+                            <option value="EAN_13">
+                                EAN_13
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Photo Upload</label>
+                        <input type="file"
+                            id="photoInput"
+                            class="form-control">
+                    </div>
+
+                    <button         
+                        type="submit"
+                        class="btn btn-primary">
+                        Save Profile
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+<div class="col-md-5">
+
+    <div class="card p-4">
+
+        <h4>Live Preview</h4>
+
+        <p class="text-muted">
+            Updates as you type
+        </p>
+
+        <hr>
+
+        <div
+            id="previewCard"
+            style="
+            width:330px;
+            margin:auto;
+            border-radius:18px;
+            overflow:hidden;
+            background:white;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+            ">
+
+            <div
+                id="cardHeader"
+                style="
+                background:#1f4ed8;
+                color:white;
+                text-align:center;
+                padding:15px;
+                ">
+
+                <h5 style="margin:0;">
+                    ORDERZONE UNIVERSITY
+                </h5>
+
+                <small>
+                    Excellence in Education
+                </small>
+
+                <br>
+
+                <span
+                    id="previewType"
+                    style="
+                    background:white;
+                    color:#1f4ed8;
+                    padding:3px 12px;
+                    border-radius:20px;
+                    font-size:12px;
+                    font-weight:bold;
+                    display:inline-block;
+                    margin-top:8px;
+                    ">
+                    STUDENT ID
+                </span>
+
+            </div>
+
+            <div style="padding:15px;">
+
+                <div class="text-center mb-3">
+
+                    <img
+                        id="previewPhoto"
+                        src="https://via.placeholder.com/100x120"
+                        style="
+                        width:100px;
+                        height:120px;
+                        object-fit:cover;
+                        border-radius:8px;
+                        border:2px solid #1f4ed8;
+                        ">
+
+                </div>
+
+                <div class="text-center">
+
+                    <h4
+                        id="previewName"
+                        style="margin-bottom:0;">
+                        Full Name
+                    </h4>
+
+                    <div
+                        id="previewTitle"
+                        class="text-muted">
+                        Student
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <table
+                    style="
+                    width:100%;
+                    font-size:14px;
+                    ">
+
+                    <tr>
+                        <td><strong>Dept.</strong></td>
+                        <td
+                            id="previewDepartment"
+                            style="text-align:right;">
+                            Department
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Blood</strong></td>
+                        <td
+                            id="previewBlood"
+                            style="text-align:right;">
+                            -
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Valid</strong></td>
+                        <td
+                            id="previewExpiry"
+                            style="text-align:right;">
+                            -
+                        </td>
+                    </tr>
+
+                </table>
+
+                <hr>
+
+                <div
+                    class="text-center"
+                    style="
+                    border:1px dashed #ccc;
+                    padding:15px;
+                    border-radius:8px;
+                    ">
+
+                    QR & Barcode<br>
+                    Generated After Save
+
+                </div>
+
+            </div>
+
+            <div
+                style="
+                background:#1f4ed8;
+                color:white;
+                text-align:center;
+                padding:6px;
+                font-size:12px;
+                ">
+
+                Verify / Scan
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+<script>
+
+const fullName = document.getElementById("fullName");
+const department = document.getElementById("department");
+const title = document.getElementById("title");
+const bloodGroup = document.getElementById("bloodGroup");
+const expiryDate = document.getElementById("expiryDate");
+const type = document.getElementById("type");
+const templatePreview = document.getElementById("templatePreview");
+const photoInput = document.getElementById("photoInput");
+
+if(fullName){
+    fullName.addEventListener("input", () => {
+
+        document.getElementById("previewName").innerText =
+            fullName.value || "Full Name";
+
+    });
+}
+
+if(department){
+    department.addEventListener("input", () => {
+
+        document.getElementById("previewDepartment").innerText =
+            department.value || "Department";
+
+    });
+}
+
+if(title){
+    title.addEventListener("input", () => {
+
+        document.getElementById("previewTitle").innerText =
+            title.value || "Student";
+
+    });
+}
+
+if(bloodGroup){
+    bloodGroup.addEventListener("input", () => {
+
+        document.getElementById("previewBlood").innerText =
+            bloodGroup.value || "-";
+
+    });
+}
+
+if(expiryDate){
+    expiryDate.addEventListener("change", () => {
+
+        document.getElementById("previewExpiry").innerText =
+            expiryDate.value || "-";
+
+    });
+}
+
+if(type){
+    type.addEventListener("change", () => {
+
+        document.getElementById("previewType").innerText =
+            type.value + " ID";
+
+    });
+}
+
+if(templatePreview){
+    templatePreview.addEventListener("change", () => {
+
+        const header = document.getElementById("cardHeader");
+
+        switch(templatePreview.value){
+
+            case "Classic Blue":
+                header.style.background = "#1f4ed8";
+                break;
+
+            case "Modern Teal":
+                header.style.background = "#0f766e";
+                break;
+
+            case "Crimson Vertical":
+                header.style.background = "#c81e1e";
+                break;
+
+            default:
+                header.style.background = "#1f4ed8";
+        }
+
+    });
+}
+
+if(photoInput){
+    photoInput.addEventListener("change", (e) => {
+
+        const file = e.target.files[0];
+
+        if(file){
+
+            document.getElementById("previewPhoto").src =
+                URL.createObjectURL(file);
+
+        }
+
+    });
+}
+
+</script>
+
+</body>
+
+</html>
